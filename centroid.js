@@ -62,6 +62,22 @@ app.persons.getPopularSources = function( params, callback ) {
 	})
 }
 
+app.persons.getCategories = function( params, callback ) {
+	app.talk( 'persons', 'getCategories', params, function( err, data ) {
+		if( ! err ) {
+			if( ! util.isArray( data.categories ) ) {
+				callback( new Error('Invalid response') )
+			} else if( data.categories.length === 0 ) {
+				callback( new Error('No results') )
+			} else {
+				callback( null, data.categories )
+			}
+		} else {
+			callback( err )
+		}
+	})
+}
+
 
 // ! communicate
 app.talk = function( category, path, params, callback ) {
