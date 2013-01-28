@@ -30,6 +30,22 @@ app.persons.getCurrentRate = function( callback ) {
 	})
 }
 
+app.persons.getActiveSources = function( params, callback ) {
+	app.talk( 'persons', 'getActiveSources', params, function( err, data ) {
+		if( ! err ) {
+			if( ! util.isArray( data.sources ) ) {
+				callback( new Error('Invalid response') )
+			} else if( data.sources.length === 0 ) {
+				callback( new Error('No results') )
+			} else {
+				callback( null, data.sources )
+			}
+		} else {
+			callback( err )
+		}
+	})
+}
+
 
 // ! communicate
 app.talk = function( category, path, params, callback ) {
