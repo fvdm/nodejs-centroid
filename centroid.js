@@ -102,6 +102,12 @@ app.talk = function( category, path, params, callback ) {
 		var params = {}
 	}
 	
+	// check credentials
+	if( typeof app.set.apikey !== 'string' || app.set.apikey === '' ) {
+		callback('No API key')
+		return
+	}
+	
 	// sign
 	var signature = Date.now()
 	var md5 = crypto.createHash('md5')
