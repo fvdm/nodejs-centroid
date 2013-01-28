@@ -1,0 +1,29 @@
+{
+  "author": {
+    "name":               "Franklin van de Meent",
+    "email":              "fr@nkl.in",
+    "url":                "http://frankl.in"
+  },
+  "name":                 "centroid",
+  "description":          "Find people",
+  "version":              "0.0.1",
+  "repository": {
+    "type":               "git",
+    "url":                "git://github.com/fvdm/nodejs-centroid.git"
+  },
+  "bugs": {
+    "url":                "https://github.com/fvdm/nodejs-centroid/issues"
+  },
+  "main":                 "centroid.js",
+  "dependencies":         {},
+  "devDependencies":      {},
+  "optionalDependencies": {},
+  "engines": {
+    "node":               "*"
+  },
+  "keywords":             ["centroid", "search", "api"],
+  "license": {
+    "type":               "Public Domain",
+    "url":                "https://github.com/fvdm/nodejs-centroid/raw/master/UNLICENSE"
+  }
+}
