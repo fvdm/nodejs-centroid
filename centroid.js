@@ -109,46 +109,55 @@ app.talk = function( category, path, params, callback ) {
 	// process response
 	request.on( 'response', function( response ) {
 		var data = ''
+		var complete = false
 		
 		response.on( 'data', function( ch ) { data += ch })
 		
 		response.on( 'close', function() {
-			callback( new Error('Disconnected') )
+			if( ! complete ) {
+				complete = true
+				callback( new Error('Disconnected') )
+			}
 		})
 		
 		response.on( 'end', function() {
-			data = data.toString('utf8').trim()
-			var err = null
-			
-			if( response.statusCode >= 300 ) {
-				var err = new Error('HTTP error')
-			} else if( data == '' ) {
-				var err = new Error('No response')
-			} else if( ! data.match( /^\{.*\}$/ ) ) {
-				var err = new Error('Invalid response')
-			} else {
-				// parse JSON
-				data = JSON.parse( data )
+			if( ! complete ) {
+				complete = true
+				data = data.toString('utf8').trim()
+				var err = null
 				
-				// API error
-				if( data.errorCode !== undefined ) {
-					var err = new Error('API error')
-					err.errorCode = data.errorCode
-					err.errorString = data.errorString
+				if( response.statusCode >= 300 ) {
+					var err = new Error('HTTP error')
+				} else if( data == '' ) {
+					var err = new Error('No response')
+				} else if( ! data.match( /^\{.*\}$/ ) ) {
+					var err = new Error('Invalid response')
+				} else {
+					// parse JSON
+					data = JSON.parse( data )
+					
+					// API error
+					if( data.errorCode !== undefined ) {
+						var err = new Error('API error')
+						err.errorCode = data.errorCode
+						err.errorString = data.errorString
+					}
+					
+					// store rate limit
+					if( data.query !== undefined && data.query.currentRate !== undefined ) {
+						app.currentRate = data.query.currentRate
+					}
 				}
 				
-				// store rate limit
-				app.currentRate = data.query.currentRate || app.currentRate
-			}
-			
-			if( err instanceof Error ) {
-				err.httpCode = response.statusCode
-				err.httpHeaders = response.headers
-				err.request = options
-				err.response = data
-				callback( err )
-			} else {
-				callback( null, data )
+				if( err instanceof Error ) {
+					err.httpCode = response.statusCode
+					err.httpHeaders = response.headers
+					err.request = options
+					err.response = data
+					callback( err )
+				} else {
+					callback( null, data )
+				}
 			}
 		})
 	})
