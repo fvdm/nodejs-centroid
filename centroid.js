@@ -108,6 +108,11 @@ app.talk = function( category, path, params, callback ) {
 		return
 	}
 	
+	if( typeof app.set.privatekey !== 'string' || app.set.privatekey === '' ) {
+		callback('No private key')
+		return
+	}
+	
 	// sign
 	var signature = Date.now()
 	var md5 = crypto.createHash('md5')
