@@ -16,6 +16,20 @@ var crypto = require('crypto'),
 // ! Persons
 app.persons = {}
 
+app.persons.getCurrentRate = function( callback ) {
+	app.talk( 'persons', 'getCurrentRate', function( err, data ) {
+		if( ! err ) {
+			if( data.query === undefined || data.query.currentRate === undefined ) {
+				callback( new Error('Invalid response') )
+			} else {
+				callback( null, data.query.currentRate )
+			}
+		} else {
+			callback( err )
+		}
+	})
+}
+
 
 // ! communicate
 app.talk = function( category, path, params, callback ) {
