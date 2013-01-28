@@ -193,7 +193,7 @@ app.talk = function( category, path, params, callback ) {
 	request.on( 'error', function( error ) {
 		var err = new Error('Request failed')
 		err.request = options
-		err.details = error
+		err.requestError = error
 		callback( err )
 	})
 	
