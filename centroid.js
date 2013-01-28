@@ -78,6 +78,22 @@ app.persons.getCategories = function( params, callback ) {
 	})
 }
 
+app.persons.search = function( params, callback ) {
+	app.talk( 'persons', 'search', params, function( err, data ) {
+		if( ! err ) {
+			if( ! util.isArray( data.sources ) ) {
+				callback( new Error('Invalid response') )
+			} else if( data.sources.length === 0 ) {
+				callback( new Error('No results') )
+			} else {
+				callback( null, data.sources )
+			}
+		} else {
+			callback( err )
+		}
+	})
+}
+
 
 // ! communicate
 app.talk = function( category, path, params, callback ) {
