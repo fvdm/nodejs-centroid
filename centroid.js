@@ -18,7 +18,7 @@ var app = {
 app.persons = {}
 
 app.persons.getCurrentRate = function( callback ) {
-  app.talk( 'persons', 'getCurrentRate', function( err, data ) {
+  talk( 'persons', 'getCurrentRate', function( err, data ) {
     if( ! err ) {
       if( data.query === undefined || data.query.currentRate === undefined ) {
         callback( new Error('Invalid response') )
@@ -32,7 +32,7 @@ app.persons.getCurrentRate = function( callback ) {
 }
 
 app.persons.getActiveSources = function( params, callback ) {
-  app.talk( 'persons', 'getActiveSources', params, function( err, data ) {
+  talk( 'persons', 'getActiveSources', params, function( err, data ) {
     if( ! err ) {
       if( ! util.isArray( data.sources ) ) {
         callback( new Error('Invalid response') )
@@ -48,7 +48,7 @@ app.persons.getActiveSources = function( params, callback ) {
 }
 
 app.persons.getPopularSources = function( params, callback ) {
-  app.talk( 'persons', 'getPopularSources', params, function( err, data ) {
+  talk( 'persons', 'getPopularSources', params, function( err, data ) {
     if( ! err ) {
       if( ! util.isArray( data.sources ) ) {
         callback( new Error('Invalid response') )
@@ -64,7 +64,7 @@ app.persons.getPopularSources = function( params, callback ) {
 }
 
 app.persons.getCategories = function( params, callback ) {
-  app.talk( 'persons', 'getCategories', params, function( err, data ) {
+  talk( 'persons', 'getCategories', params, function( err, data ) {
     if( ! err ) {
       if( ! util.isArray( data.categories ) ) {
         callback( new Error('Invalid response') )
@@ -80,7 +80,7 @@ app.persons.getCategories = function( params, callback ) {
 }
 
 app.persons.search = function( params, callback ) {
-  app.talk( 'persons', 'search', params, function( err, data ) {
+  talk( 'persons', 'search', params, function( err, data ) {
     if( ! err ) {
       if( ! util.isArray( data.sources ) ) {
         callback( new Error('Invalid response') )
@@ -96,8 +96,8 @@ app.persons.search = function( params, callback ) {
 }
 
 
-app.talk = function( category, path, params, callback ) {
 // communicate
+function talk( category, path, params, callback ) {
   if( typeof params === 'function' ) {
     var callback = params
     var params = {}
