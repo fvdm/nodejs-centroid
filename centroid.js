@@ -1,6 +1,5 @@
 var crypto = require('crypto')
 var http = require('http')
-var util = require('util')
 var querystring = require('querystring')
 
 // Defaults
@@ -34,7 +33,7 @@ app.persons.getCurrentRate = function( callback ) {
 app.persons.getActiveSources = function( params, callback ) {
   talk( 'persons', 'getActiveSources', params, function( err, data ) {
     if( ! err ) {
-      if( ! util.isArray( data.sources ) ) {
+      if( ! data.sources instanceof Array ) {
         callback( new Error('Invalid response') )
       } else if( data.sources.length === 0 ) {
         callback( new Error('No results') )
@@ -50,7 +49,7 @@ app.persons.getActiveSources = function( params, callback ) {
 app.persons.getPopularSources = function( params, callback ) {
   talk( 'persons', 'getPopularSources', params, function( err, data ) {
     if( ! err ) {
-      if( ! util.isArray( data.sources ) ) {
+      if( ! data.sources instanceof Array ) {
         callback( new Error('Invalid response') )
       } else if( data.sources.length === 0 ) {
         callback( new Error('No results') )
@@ -66,7 +65,7 @@ app.persons.getPopularSources = function( params, callback ) {
 app.persons.getCategories = function( params, callback ) {
   talk( 'persons', 'getCategories', params, function( err, data ) {
     if( ! err ) {
-      if( ! util.isArray( data.categories ) ) {
+      if( ! data.categories instanceof Array ) {
         callback( new Error('Invalid response') )
       } else if( data.categories.length === 0 ) {
         callback( new Error('No results') )
@@ -82,7 +81,7 @@ app.persons.getCategories = function( params, callback ) {
 app.persons.search = function( params, callback ) {
   talk( 'persons', 'search', params, function( err, data ) {
     if( ! err ) {
-      if( ! util.isArray( data.sources ) ) {
+      if( ! data.sources instanceof Array ) {
         callback( new Error('Invalid response') )
       } else if( data.sources.length === 0 ) {
         callback( new Error('No results') )
@@ -154,6 +153,7 @@ function talk( category, path, params, callback ) {
         data = data.toString('utf8').trim()
         var err = null
         
+        // API error
         if( response.statusCode >= 300 ) {
           var err = new Error('HTTP error')
         } else if( data == '' ) {
@@ -161,22 +161,20 @@ function talk( category, path, params, callback ) {
         } else if( ! data.match( /^\{.*\}$/ ) ) {
           var err = new Error('Invalid response')
         } else {
-          // parse JSON
           data = JSON.parse( data )
-          
-          // API error
+
           if( data.errorCode !== undefined ) {
             var err = new Error('API error')
             err.errorCode = data.errorCode
             err.errorString = data.errorString
           }
-          
+
           // store rate limit
           if( data.query !== undefined && data.query.currentRate !== undefined ) {
             app.currentRate = data.query.currentRate
           }
         }
-        
+
         if( err instanceof Error ) {
           err.httpCode = response.statusCode
           err.httpHeaders = response.headers
