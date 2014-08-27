@@ -26,5 +26,8 @@
   "license": {
     "type":               "Public Domain",
     "url":                "https://github.com/fvdm/nodejs-centroid/raw/master/UNLICENSE"
+  },
+  "scripts": {
+    "test":                "node test.js"
   }
 }
