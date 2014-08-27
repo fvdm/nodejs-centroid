@@ -8,7 +8,7 @@ var app = {
     apihost: 'api.centroidmedia.com',
     apikey: null,
     privatekey: null,
-    timeout: 5000
+    timeout: 10000
   },
   currentRate: 0
 }
@@ -104,13 +104,13 @@ function talk( category, path, params, callback ) {
   }
 
   // check credentials
-  if( typeof app.set.apikey !== 'string' || app.set.apikey === '' ) {
-    callback('No API key')
+  if( !app.set.apikey || typeof app.set.apikey !== 'string' || app.set.apikey === '' ) {
+    callback( new Error('No API key') )
     return
   }
 
-  if( typeof app.set.privatekey !== 'string' || app.set.privatekey === '' ) {
-    callback('No private key')
+  if( !app.set.privatekey || typeof app.set.privatekey !== 'string' || app.set.privatekey === '' ) {
+    callback( new Error('No private key') )
     return
   }
 
@@ -129,7 +129,10 @@ function talk( category, path, params, callback ) {
   var options = {
     host: category +'.'+ app.set.apihost,
     path: '/'+ path +'?'+ querystring.stringify( params ),
-    method: 'GET'
+    method: 'GET',
+    headers: {
+      'User-Agent': 'centroid.js (https://github.com/fvdm/nodejs-centroid)'
+    }
   }
 
   var request = http.request( options )
@@ -201,7 +204,7 @@ function talk( category, path, params, callback ) {
 
   // request failed
   request.on( 'error', function( error ) {
-    if( error == 'ECONNRESET' ) {
+    if( error.code === 'ECONNRESET' ) {
       var err = new Error('Request timeout')
     } else {
       var err = new Error('Request failed')
