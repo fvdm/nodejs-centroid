@@ -7,7 +7,8 @@ var app = {
   set: {
     apihost: 'api.centroidmedia.com',
     apikey: null,
-    privatekey: null
+    privatekey: null,
+    timeout: 5000
   },
   currentRate: 0
 }
@@ -188,9 +189,23 @@ function talk( category, path, params, callback ) {
     })
   })
 
+  // request timeout
+  request.on( 'socket', function( socket ) {
+    if( app.set.timeout ) {
+      socket.setTimeout( app.set.timeout )
+      socket.on( 'timeout', function() {
+        request.abort()
+      })
+    }
+  })
+
   // request failed
   request.on( 'error', function( error ) {
-    var err = new Error('Request failed')
+    if( error == 'ECONNRESET' ) {
+      var err = new Error('Request timeout')
+    } else {
+      var err = new Error('Request failed')
+    }
     err.request = options
     err.requestError = error
     callback( err )
@@ -202,8 +217,9 @@ function talk( category, path, params, callback ) {
 
 
 // setup
-module.exports = function( apikey, privatekey ) {
+module.exports = function( apikey, privatekey, timeout ) {
   app.set.apikey = apikey || null
   app.set.privatekey = privatekey || null
+  app.set.timeout = timeout || app.set.timeout
   return app
 }
