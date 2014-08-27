@@ -1,19 +1,20 @@
-// ! init
-var crypto = require('crypto'),
-    http = require('http'),
-    util = require('util'),
-    querystring = require('querystring'),
-    app = {
+var crypto = require('crypto')
+var http = require('http')
+var util = require('util')
+var querystring = require('querystring')
+
+// Defaults
+var app = {
   set: {
-    apihost:  'api.centroidmedia.com',
-    apikey:   '',
-    privatekey: ''
+    apihost: 'api.centroidmedia.com',
+    apikey: null,
+    privatekey: null
   },
   currentRate: 0
 }
 
 
-// ! Persons
+// Persons
 app.persons = {}
 
 app.persons.getCurrentRate = function( callback ) {
@@ -95,8 +96,8 @@ app.persons.search = function( params, callback ) {
 }
 
 
-// ! communicate
 app.talk = function( category, path, params, callback ) {
+// communicate
   if( typeof params === 'function' ) {
     var callback = params
     var params = {}
@@ -202,5 +203,4 @@ app.talk = function( category, path, params, callback ) {
 }
 
 
-// ! export
-module.exports = app
+module.exports = app// export
