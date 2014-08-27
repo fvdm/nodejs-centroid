@@ -101,58 +101,58 @@ function talk( category, path, params, callback ) {
     var callback = params
     var params = {}
   }
-  
+
   // check credentials
   if( typeof app.set.apikey !== 'string' || app.set.apikey === '' ) {
     callback('No API key')
     return
   }
-  
+
   if( typeof app.set.privatekey !== 'string' || app.set.privatekey === '' ) {
     callback('No private key')
     return
   }
-  
+
   // sign
   var signature = Date.now()
   var md5 = crypto.createHash('md5')
   md5.update( app.set.privatekey + signature )
   var api_sig = md5.digest('hex')
-  
+
   // build request
   params.api_key = app.set.apikey
   params.api_sig = api_sig
   params.signature = signature
   params.format = 'json'
-  
+
   var options = {
     host: category +'.'+ app.set.apihost,
     path: '/'+ path +'?'+ querystring.stringify( params ),
     method: 'GET'
   }
-  
+
   var request = http.request( options )
-  
+
   // process response
   request.on( 'response', function( response ) {
     var data = ''
     var complete = false
-    
+
     response.on( 'data', function( ch ) { data += ch })
-    
+
     response.on( 'close', function() {
       if( ! complete ) {
         complete = true
         callback( new Error('Disconnected') )
       }
     })
-    
+
     response.on( 'end', function() {
       if( ! complete ) {
         complete = true
         data = data.toString('utf8').trim()
         var err = null
-        
+
         // API error
         if( response.statusCode >= 300 ) {
           var err = new Error('API error')
@@ -187,7 +187,7 @@ function talk( category, path, params, callback ) {
       }
     })
   })
-  
+
   // request failed
   request.on( 'error', function( error ) {
     var err = new Error('Request failed')
@@ -195,7 +195,7 @@ function talk( category, path, params, callback ) {
     err.requestError = error
     callback( err )
   })
-  
+
   // finish
   request.end()
 }
