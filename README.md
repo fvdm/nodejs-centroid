@@ -1,7 +1,7 @@
 nodejs-centroid
 ===============
 
-Unofficial wrapper for Centroid Media API
+Unofficial node.js module for the Centroid Media API.
 
 [![Build Status](https://travis-ci.org/fvdm/nodejs-centroid.svg?branch=master)](https://travis-ci.org/fvdm/nodejs-centroid)
 
