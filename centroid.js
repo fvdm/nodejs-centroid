@@ -203,4 +203,9 @@ function talk( category, path, params, callback ) {
 }
 
 
-module.exports = app// export
+// setup
+module.exports = function( apikey, privatekey ) {
+  app.set.apikey = apikey || null
+  app.set.privatekey = privatekey || null
+  return app
+}
