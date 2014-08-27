@@ -104,13 +104,13 @@ function talk( category, path, params, callback ) {
   }
 
   // check credentials
-  if( typeof app.set.apikey !== 'string' || app.set.apikey === '' ) {
-    callback('No API key')
+  if( !app.set.apikey || typeof app.set.apikey !== 'string' || app.set.apikey === '' ) {
+    callback( new Error('No API key') )
     return
   }
 
-  if( typeof app.set.privatekey !== 'string' || app.set.privatekey === '' ) {
-    callback('No private key')
+  if( !app.set.privatekey || typeof app.set.privatekey !== 'string' || app.set.privatekey === '' ) {
+    callback( new Error('No private key') )
     return
   }
 
