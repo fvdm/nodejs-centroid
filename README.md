@@ -22,10 +22,9 @@ The version in the [NPM registry](https://npmjs.org/) is always the latest *stab
 
 ### From Github source
 
-Cloning from Github gives you the most recent code, but may be *untested*.
+The Github repository is the most recent code, but may be *unstable*.
 
-	git clone https://github.com/fvdm/nodejs-centroid
-	npm install ./nodejs-centroid
+	npm install git+https://github.com/fvdm/nodejs-centroid
 
 
 Configuration
