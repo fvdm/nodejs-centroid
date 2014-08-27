@@ -8,7 +8,7 @@ var app = {
     apihost: 'api.centroidmedia.com',
     apikey: null,
     privatekey: null,
-    timeout: 5000
+    timeout: 10000
   },
   currentRate: 0
 }
