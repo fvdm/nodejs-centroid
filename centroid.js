@@ -17,7 +17,7 @@ var app = {
 // Persons
 app.persons = {}
 
-app.persons.getCurrentRate = function( callback ) {
+app.getCurrentRate = function( callback ) {
   talk( 'persons', 'getCurrentRate', function( err, data ) {
     if( ! err ) {
       if( data.query === undefined || data.query.currentRate === undefined ) {
