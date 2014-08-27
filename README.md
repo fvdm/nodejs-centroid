@@ -3,6 +3,8 @@ nodejs-centroid
 
 Unofficial wrapper for Centroid Media API
 
+[![Build Status](https://travis-ci.org/fvdm/nodejs-centroid.svg?branch=master)](https://travis-ci.org/fvdm/nodejs-centroid)
+
 [Centroid Media](http://www.centroid.nl/)
 
 [API documentation](http://api.centroidmedia.com/documentation.html)
