@@ -93,15 +93,6 @@ These properties can be provided in the `Error` instance. Not all of these are p
 	.errorString    API error message
 
 
-talk ( category, path, [params], callback )
--------------------------------------------
-
-	category   string     required   Which API to call
-	path       string     required   The method path, without leading /
-	params     object     optional   Object with method parameters
-	callback   function   required   Function to receive results
-	
-
 Unlicense
 ---------
 
