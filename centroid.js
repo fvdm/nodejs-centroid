@@ -204,7 +204,7 @@ function talk( category, path, params, callback ) {
 
   // request failed
   request.on( 'error', function( error ) {
-    if( error == 'ECONNRESET' ) {
+    if( error.code === 'ECONNRESET' ) {
       var err = new Error('Request timeout')
     } else {
       var err = new Error('Request failed')
