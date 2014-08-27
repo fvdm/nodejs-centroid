@@ -129,7 +129,10 @@ function talk( category, path, params, callback ) {
   var options = {
     host: category +'.'+ app.set.apihost,
     path: '/'+ path +'?'+ querystring.stringify( params ),
-    method: 'GET'
+    method: 'GET',
+    headers: {
+      'User-Agent': 'centroid.js (https://github.com/fvdm/nodejs-centroid)'
+    }
   }
 
   var request = http.request( options )
