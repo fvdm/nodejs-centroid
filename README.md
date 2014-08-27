@@ -30,12 +30,16 @@ The Github repository is the most recent code, but may be *unstable*.
 Configuration
 -------------
 
-You need API credentials to get access to the methods, which can be requested on the [Centroid website](http://api.centroidmedia.com/apply-for-an-api-key.html). When you have those, specify them in your code with the `set` object:
+You need API credentials to get access to the methods, which can be requested on the [Centroid website](http://api.centroidmedia.com/apply-for-an-api-key.html). When you have those, specify them in your code:
 
 ```js
-centroid.set.apikey = 'myAPIkey'
-centroid.set.privatekey = 'mySecret'
+var centroid = require('centroid')('apiKey', 'privateKey')
 ```
+
+	apiKey      required  Your API key
+	privateKey  required  Your private key
+	timeout     option    Time limit to wait for response,
+	                      default 10000 ms (10 sec)
 
 
 Methods
@@ -62,8 +66,8 @@ callbackFunction( err, data ) {
 
 The `err` parameter can received these errors:
 
-	Error: No API key         No set.apikey was provided
-	Error: No private key     No set.privatekey was provided
+	Error: No API key         No apikey was provided
+	Error: No private key     No privatekey was provided
 	Error: Disconnected       The API disconnected too early
 	Error: HTTP error         The API returned a HTTP error
 	Error: No response        The API returned no data
