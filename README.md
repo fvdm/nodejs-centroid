@@ -15,7 +15,8 @@ Installation
 
 ### With NPM
 
-The version in the [NPM registry](https://npmjs.org/) is always the latest *stable* release. This also allows easy updating.
+The version in the [NPM registry](https://npmjs.org/) is always the latest *stable* release.
+This also allows easy updating.
 
 	npm install centroid
 	
@@ -30,7 +31,9 @@ The Github repository is the most recent code, but may be *unstable*.
 Configuration
 -------------
 
-You need API credentials to get access to the methods, which can be requested on the [Centroid website](http://api.centroidmedia.com/apply-for-an-api-key.html). When you have those, specify them in your code:
+You need API credentials to get access to the methods,
+which can be requested on the [Centroid website](http://api.centroidmedia.com/apply-for-an-api-key.html).
+When you have those, specify them in your code:
 
 ```js
 var centroid = require('centroid')( 'apiKey', 'privateKey', 10000 )
@@ -69,9 +72,11 @@ Methods
 
 ### callbackFunction ( err, [data] )
 
-Each method requires the last parameters to be a `callback` *function*. This function receives the results or error when there is trouble.
+Each method requires the last parameters to be a `callback` *function*.
+This function receives the results or error when there is trouble.
 
-When there is an error, `err` is `instanceof Error` with related information. When the request went fine, `err` is *null* and `data` is set.
+When there is an error, `err` is `instanceof Error` with related information.
+When the request went fine, `err` is *null* and `data` is set.
 
 ```js
 callbackFunction( err, data ) {
@@ -101,7 +106,8 @@ The `err` parameter can received these errors:
 
 ### Additional information
 
-These properties can be provided in the `Error` instance. Not all of these are present in each type of error.
+These properties can be provided in the `Error` instance.
+Not all of these are present in each type of error.
 
 	.stack          The stack trace
 	.message        The error message
