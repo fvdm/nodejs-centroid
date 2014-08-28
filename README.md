@@ -42,6 +42,24 @@ var centroid = require('centroid')('apiKey', 'privateKey')
 	                      default 10000 ms (10 sec)
 
 
+Example
+-------
+
+```js
+var centroid = require('centroid')( 'apikey', 'privatekey' )
+
+centroid.persons.find(
+  {
+    country: 'us',
+    lang: 'en',
+    fullname: 'Barack Obama',
+    sources: 'linkedin'
+  },
+  callback
+)
+```
+
+
 Methods
 -------
 
