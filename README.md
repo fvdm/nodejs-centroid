@@ -214,6 +214,62 @@ Result: (truncated)
 ```
 
 
+persons.search ( props, callback )
+--------------
+
+Search for a person.
+
+### Props
+
+```
+country     required  Two-letter ISO country code, i.e. 'us'.
+lang        required  Two-letter ISO language code, i.e. 'en'.
+
+Requires at least one of:
+
+categories            Comma-separated list of category IDs.
+sources               Comma-separated list of source IDs.
+set                   'popular' (default) or 'all'.
+
+Requires at least one of:                  
+
+firstname             Person's firstname.
+fullname              Person's first and last names.
+```
+
+```js
+centroid.persons.search(
+  {
+    country: 'us',
+    lang: 'en',
+    fullname: 'Barack Obama',
+    sources: 'linkedin'
+  },
+  output
+)
+```
+
+Result:
+
+```js
+[ { name: 'LinkedIn',
+    id: 'linkedin',
+    category: 'socialnetworks',
+    found: 27,
+    result_location: 'http://www.kgbpeople.com/api/linkedin?firstname=Barack',
+    results: 
+     [ { name: 'Barack Obama',
+         photo: 'https://media.licdn.com/mpr/mpr/shrink_120_120/p/2/000/1a3/129/3a73f4c.jpg',
+         headline: 'President of the United States of America',
+         current: 'President at United States of America',
+         past: 'US Senator at US Senate (IL-D), State Senator at Illinois State Senate, Senior Lecturer in Law at University of Chicago Law School',
+         location: 'Washington D.C. en omgeving, Verenigde Staten',
+         education: 'Harvard University, Columbia University in the City of New York, Occidental College',
+         industry: 'Administración gubernamental',
+         url: 'http://www.linkedin.com/in/barackobama' } ] } ]
+```
+
+
 Unlicense
 ---------
 
