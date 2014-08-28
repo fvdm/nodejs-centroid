@@ -127,6 +127,36 @@ Result:
 ```
 
 
+persons.getActiveSources ( props, callback )
+------------------------
+
+Get a list of sources that are active for the specified country.
+
+### Props
+
+```
+country  required  Two-letter ISO country code, i.e. 'us'.
+lang     required  Two-letter ISO language code, i.e. 'en'.
+```
+
+```js
+centroid.getActiveSources ( props, callback )
+```
+
+Result: (truncated)
+
+```js
+[ { name: 'Twitter',
+    id: 'twitter',
+    category: 'socialnetworks',
+    popular: 1 },
+  { name: 'LinkedIn',
+    id: 'linkedin',
+    category: 'socialnetworks',
+    popular: 1 } ]
+```
+
+
 Unlicense
 ---------
 
