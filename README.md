@@ -39,7 +39,11 @@ var centroid = require('centroid')('apiKey', 'privateKey')
 	apiKey      required  Your API key
 	privateKey  required  Your private key
 	timeout     option    Time limit to wait for response,
-	                      default 10000 ms (10 sec)
+	                      default 20000 ms (20 sec)
+
+
+Searching a person across many sources may take a while to complete,
+therefore a timeout of 20 seconds is not extremely high.
 
 
 Example

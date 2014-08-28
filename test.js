@@ -6,7 +6,7 @@ var util = require('util')
 var centroid = require('./')(
   process.env.npm_config_centroid_apikey || process.env.CENTROID_APIKEY || null,
   process.env.npm_config_centroid_privatekey || process.env.CENTROID_PRIVATEKEY || null,
-  process.env.npm_config_centroid_timeout || process.env.CENTROID_TIMEOUT || 10000
+  process.env.npm_config_centroid_timeout || process.env.CENTROID_TIMEOUT || 20000
 )
 
 // handle exits
