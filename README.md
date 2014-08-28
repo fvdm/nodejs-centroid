@@ -183,6 +183,37 @@ Result: (truncated)
 ```
 
 
+persons.getCategories ( props, callback )
+---------------------
+
+Get a list of categories that are active for the specified country.
+
+### Props
+
+```
+country  required  Two-letter ISO country code, i.e. 'us'.
+lang     required  Two-letter ISO language code, i.e. 'en'.
+```
+
+```js
+centroid.getCategories ( props, callback )
+```
+
+Result: (truncated)
+
+```js
+[ { name: 'Personal',
+    id: 'wow_data',
+    sources: 
+     [ { name: 'Related persons', id: 'related', popular: 1 },
+       { name: 'Facts', id: 'facts', popular: 1 },
+       { name: 'Tags', id: 'tags', popular: 1 },
+       { name: 'Email addresses', id: 'emailaddresses', popular: 1 },
+       { name: 'Phone numbers', id: 'phonenumbers', popular: 1 },
+       { name: 'Documents', id: 'docs', popular: 1 } ] } ]
+```
+
+
 Unlicense
 ---------
 
