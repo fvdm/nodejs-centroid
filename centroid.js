@@ -172,7 +172,7 @@ function talk( category, path, params, callback ) {
 
         // API error
         if( response.statusCode >= 300 ) {
-          var err = new Error('API error')
+          var err = new Error('HTTP error')
         } else if( data == '' ) {
           var err = new Error('No response')
         } else if( ! data.match( /^\{.*\}$/ ) ) {
