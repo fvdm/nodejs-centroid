@@ -33,7 +33,7 @@ Configuration
 You need API credentials to get access to the methods, which can be requested on the [Centroid website](http://api.centroidmedia.com/apply-for-an-api-key.html). When you have those, specify them in your code:
 
 ```js
-var centroid = require('centroid')('apiKey', 'privateKey')
+var centroid = require('centroid')( 'apiKey', 'privateKey', 10000 )
 ```
 
 	apiKey      required  Your API key
