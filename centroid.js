@@ -1,3 +1,16 @@
+/*
+Name:          centroid
+Description:   Unofficial node.js module for the Centroid Media API.
+Author:        Franklin van de Meent (https://frankl.in)
+Source code:   https://github.com/fvdm/nodejs-centroid
+Feedback:      https://github.com/fvdm/nodejs-centroid/issues
+License:       Unlicense / Public Domain
+               see UNLICENSE file
+
+Service name: Centroid Media (http://www.centroid.nl)
+Service docs: http://api.centroidmedia.com/documentation.html
+*/
+
 var crypto = require('crypto')
 var http = require('http')
 var querystring = require('querystring')
