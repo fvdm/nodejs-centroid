@@ -111,6 +111,22 @@ These properties can be provided in the `Error` instance. Not all of these are p
 	.errorString    API error message
 
 
+getCurrentRate ( callback )
+--------------
+
+Get the current rate.
+
+```js
+centroid.getCurrentRate( callback )
+```
+
+Result:
+
+```js
+30
+```
+
+
 Unlicense
 ---------
 
