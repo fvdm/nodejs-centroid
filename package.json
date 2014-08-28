@@ -5,9 +5,9 @@
     "url":                "https://frankl.in"
   },
   "name":                 "centroid",
-  "description":          "Find people",
+  "description":          "Search persons in many public sources.",
   "version":              "1.0.0",
-  "homepage":              "https://frankl.in/code/centroid-api-for-node-js",
+  "homepage":             "https://frankl.in/code/centroid-api-for-node-js",
   "repository": {
     "type":               "git",
     "url":                "git://github.com/fvdm/nodejs-centroid.git"
