@@ -157,6 +157,32 @@ Result: (truncated)
 ```
 
 
+persons.getPopularSources ( props, callback )
+-------------------------
+
+Get a list of popular sources that are active for the specified country.
+
+### Props
+
+```
+country  required  Two-letter ISO country code, i.e. 'us'.
+lang     required  Two-letter ISO language code, i.e. 'en'.
+```
+
+```js
+centroid.getPopularSources ( props, callback )
+```
+
+Result: (truncated)
+
+```js
+[ { name: 'Twitter', id: 'twitter', category: 'socialnetworks' },
+  { name: 'LinkedIn', id: 'linkedin', category: 'socialnetworks' },
+  { name: 'Facebook', id: 'facebook', category: 'socialnetworks' },
+  { name: 'MySpace', id: 'myspace', category: 'socialnetworks' } ]
+```
+
+
 Unlicense
 ---------
 
