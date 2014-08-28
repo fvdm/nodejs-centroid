@@ -120,6 +120,17 @@ queue.push( function() {
   })
 })
 
+queue.push( function() {
+  centroid.persons.getCategories( {country:'nl', lang:'nl'}, function( err, data ) {
+    doTest( err, 'persons.getCategories', [
+      ['type', data instanceof Array],
+      ['length', data.length >= 1],
+      ['item type', data[0] instanceof Object],
+      ['item prop', typeof data[0].name === 'string']
+    ])
+  })
+})
+
 
 // Start the tests
 queue[0]()
