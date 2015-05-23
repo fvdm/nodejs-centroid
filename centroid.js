@@ -7,13 +7,13 @@ Feedback:      https://github.com/fvdm/nodejs-centroid/issues
 License:       Unlicense / Public Domain
                see UNLICENSE file
 
-Service name: Centroid Media (http://www.centroid.nl)
-Service docs: http://api.centroidmedia.com/documentation.html
+Service name:  Centroid Media (http://www.centroid.nl)
+Service docs:  http://api.centroidmedia.com/documentation.html
 */
 
-var crypto = require('crypto')
-var http = require('http')
-var querystring = require('querystring')
+var http = require ('httpreq');
+var crypto = require ('crypto');
+
 
 // Defaults
 var app = {
@@ -21,221 +21,142 @@ var app = {
     apihost: 'api.centroidmedia.com',
     apikey: null,
     privatekey: null,
-    timeout: 20000
+    timeout: 10000
   },
   currentRate: 0
-}
+};
 
 
 // Persons
-app.persons = {}
+app.persons = {};
 
-app.getCurrentRate = function( callback ) {
-  talk( 'persons', 'getCurrentRate', function( err, data ) {
-    if( ! err ) {
-      if( data.query === undefined || data.query.currentRate === undefined ) {
-        callback( new Error('Invalid response') )
-      } else {
-        callback( null, data.query.currentRate )
-      }
-    } else {
-      callback( err )
-    }
-  })
-}
+app.getCurrentRate = function (callback) {
+  talk ('persons', 'getCurrentRate', function (err, data) {
+    fixData (err, data, ['query', 'currentRate'], callback);
+  });
+};
 
-app.persons.getActiveSources = function( params, callback ) {
-  talk( 'persons', 'getActiveSources', params, function( err, data ) {
-    if( ! err ) {
-      if( ! data.sources instanceof Array ) {
-        callback( new Error('Invalid response') )
-      } else if( data.sources.length === 0 ) {
-        callback( new Error('No results') )
-      } else {
-        callback( null, data.sources )
-      }
-    } else {
-      callback( err )
-    }
-  })
-}
+app.persons.getActiveSources = function (params, callback) {
+  talk ('persons', 'getActiveSources', params, function (err, data) {
+    fixData (err, data, ['sources'], callback);
+  });
+};
 
-app.persons.getPopularSources = function( params, callback ) {
-  talk( 'persons', 'getPopularSources', params, function( err, data ) {
-    if( ! err ) {
-      if( ! data.sources instanceof Array ) {
-        callback( new Error('Invalid response') )
-      } else if( data.sources.length === 0 ) {
-        callback( new Error('No results') )
-      } else {
-        callback( null, data.sources )
-      }
-    } else {
-      callback( err )
-    }
-  })
-}
+app.persons.getPopularSources = function (params, callback) {
+  talk ('persons', 'getPopularSources', params, function (err, data) {
+    fixData (err, data, ['sources'], callback);
+  });
+};
 
-app.persons.getCategories = function( params, callback ) {
-  talk( 'persons', 'getCategories', params, function( err, data ) {
-    if( ! err ) {
-      if( ! data.categories instanceof Array ) {
-        callback( new Error('Invalid response') )
-      } else if( data.categories.length === 0 ) {
-        callback( new Error('No results') )
-      } else {
-        callback( null, data.categories )
-      }
-    } else {
-      callback( err )
-    }
-  })
-}
+app.persons.getCategories = function (params, callback) {
+  talk ('persons', 'getCategories', params, function (err, data) {
+    fixData (err, data, ['categories'], callback);
+  });
+};
 
-app.persons.search = function( params, callback ) {
-  talk( 'persons', 'search', params, function( err, data ) {
-    if( ! err ) {
-      if( ! data.sources instanceof Array ) {
-        callback( new Error('Invalid response') )
-      } else if( data.sources.length === 0 ) {
-        callback( new Error('No results') )
-      } else {
-        callback( null, data.sources )
-      }
+app.persons.search = function (params, callback) {
+  talk ('persons', 'search', params, function (err, data) {
+    fixData (err, data, ['sources'], callback);
+  });
+};
+
+
+// fix data
+function fixData (err, data, props, callback) {
+  if (err) { return callback (err); }
+  var i;
+  for (i = 0; i < props.length; i++) {
+    if (data && data [props [i]]) {
+      data = data [props [i]];
     } else {
-      callback( err )
+      return  callback (new Error ('Invalid Response'));
     }
-  })
+  }
+  callback (null, data);
 }
 
 
 // communicate
-function talk( category, path, params, callback ) {
-  if( typeof params === 'function' ) {
-    var callback = params
-    var params = {}
+function talk (category, path, params, callback) {
+  if (typeof params === 'function') {
+    var callback = params;
+    var params = {};
   }
 
   // check credentials
-  if( !app.set.apikey || typeof app.set.apikey !== 'string' || app.set.apikey === '' ) {
-    callback( new Error('No API key') )
-    return
+  if (!app.set.apikey) {
+    return callback (new Error ('No API key'));
   }
 
-  if( !app.set.privatekey || typeof app.set.privatekey !== 'string' || app.set.privatekey === '' ) {
-    callback( new Error('No private key') )
-    return
+  if( !app.set.privatekey) {
+    return callback (new Error ('No private key'));
   }
 
   // sign
-  var signature = Date.now()
-  var md5 = crypto.createHash('md5')
-  md5.update( app.set.privatekey + signature )
-  var api_sig = md5.digest('hex')
+  var signature = Date.now ();
+  var api_sig = crypto
+    .createHash ('md5')
+    .update (app.set.privatekey + signature)
+    .digest ('hex');
 
   // build request
-  params.api_key = app.set.apikey
-  params.api_sig = api_sig
-  params.signature = signature
-  params.format = 'json'
+  params.api_key = app.set.apikey;
+  params.api_sig = api_sig;
+  params.signature = signature;
+  params.format = 'json';
 
-  var options = {
-    host: category +'.'+ app.set.apihost,
-    path: '/'+ path +'?'+ querystring.stringify( params ),
-    method: 'GET',
-    headers: {
-      'User-Agent': 'centroid.js (https://github.com/fvdm/nodejs-centroid)'
-    }
-  }
-
-  var request = http.request( options )
-
-  // process response
-  request.on( 'response', function( response ) {
-    var data = ''
-    var complete = false
-
-    response.on( 'data', function( ch ) { data += ch })
-
-    response.on( 'close', function() {
-      if( ! complete ) {
-        complete = true
-        callback( new Error('Disconnected') )
+  http.get (
+    'http://'+ category +'.'+ app.set.apihost +'/'+ path,
+    {
+      parameters: params,
+      timeout: app.set.timeout,
+      headers: {
+        'User-Agent': 'centroid.js (https://github.com/fvdm/nodejs-centroid)'
       }
-    })
+    },
+    function (err, res) {
+      if (err) { return callback (err); }
+      var data = null;
+      var error = null;
 
-    response.on( 'end', function() {
-      if( ! complete ) {
-        complete = true
-        data = data.toString('utf8').trim()
-        var err = null
-
-        // API error
-        if( response.statusCode >= 300 ) {
-          var err = new Error('HTTP error')
-        } else if( data == '' ) {
-          var err = new Error('No response')
-        } else if( ! data.match( /^\{.*\}$/ ) ) {
-          var err = new Error('Invalid response')
-        } else {
-          data = JSON.parse( data )
-
-          if( data.errorCode !== undefined ) {
-            var err = new Error('API error')
-            err.errorCode = data.errorCode
-            err.errorString = data.errorString
-          }
-
-          // store rate limit
-          if( data.query !== undefined && data.query.currentRate !== undefined ) {
-            app.currentRate = data.query.currentRate
-          }
-        }
-
-        if( err instanceof Error ) {
-          err.httpCode = response.statusCode
-          err.httpHeaders = response.headers
-          err.request = options
-          err.response = data
-          callback( err )
-        } else {
-          callback( null, data )
-        }
+      try {
+        data = JSON.parse (res.body);
+      } catch (e) {
+        error = new Error ('Invalid response');
       }
-    })
-  })
 
-  // request timeout
-  request.on( 'socket', function( socket ) {
-    if( app.set.timeout ) {
-      socket.setTimeout( app.set.timeout )
-      socket.on( 'timeout', function() {
-        request.abort()
-      })
+      if (data && !(data instanceof Object)) {
+        error = new Error ('Invalid response');
+      }
+
+      if (data && data.errorCode) {
+        error = new Error ('API error');
+        error.errorCode = data.errorCode;
+        error.errorString = data.errorString;
+      }
+
+      // store rate limit
+      if (data && data.query && data.query.currentRate) {
+        app.currentRate = data.query.currentRate;
+      }
+
+      if (error instanceof Error) {
+        error.httpCode = res.statusCode;
+        error.httpHeaders = res.headers;
+        error.response = data;
+        callback (error);
+      } else {
+        callback (null, data);
+      }
     }
-  })
-
-  // request failed
-  request.on( 'error', function( error ) {
-    if( error.code === 'ECONNRESET' ) {
-      var err = new Error('Request timeout')
-    } else {
-      var err = new Error('Request failed')
-    }
-    err.request = options
-    err.requestError = error
-    callback( err )
-  })
-
-  // finish
-  request.end()
+  );
 }
 
 
 // setup
-module.exports = function( apikey, privatekey, timeout ) {
-  app.set.apikey = apikey || null
-  app.set.privatekey = privatekey || null
-  app.set.timeout = timeout || app.set.timeout
-  return app
-}
+module.exports = function (apikey, privatekey, timeout) {
+  app.set.apikey = apikey || null;
+  app.set.privatekey = privatekey || null;
+  app.set.timeout = timeout || app.set.timeout;
+  return app;
+};
