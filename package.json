@@ -23,10 +23,7 @@
     "node":               "*"
   },
   "keywords":             ["centroid", "search", "pse", "people", "social", "api"],
-  "license": {
-    "type":               "Public Domain",
-    "url":                "https://github.com/fvdm/nodejs-centroid/raw/master/UNLICENSE"
-  },
+  "license":              "Unlicense",
   "scripts": {
     "test":                "node test.js"
   }
