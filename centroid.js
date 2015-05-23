@@ -157,6 +157,6 @@ function talk (category, path, params, callback) {
 module.exports = function (apikey, privatekey, timeout) {
   app.set.apikey = apikey || null;
   app.set.privatekey = privatekey || null;
-  app.set.timeout = timeout || app.set.timeout;
+  app.set.timeout = parseInt (timeout || app.set.timeout);
   return app;
 };
