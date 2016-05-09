@@ -12,7 +12,8 @@ Unofficial node.js module for the Centroid Media API.
 DEPRECATED
 ----------
 
-The `centroid` module is deprecated because the remote API is no longer available. All described methods will fail.
+The `centroid` module is deprecated because the remote API is no longer available.
+All described methods will fail.
 
 
 Example
@@ -342,6 +343,4 @@ For more information, please refer to <http://unlicense.org>
 Author
 ------
 
-Franklin van de Meent
-| [Website](https://frankl.in)
-| [Github](https://github.com/fvdm)
+[Franklin van de Meent](https://frankl.in)
