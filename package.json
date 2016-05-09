@@ -5,9 +5,8 @@
     "url":                "https://frankl.in"
   },
   "name":                 "centroid",
-  "description":          "Search persons in many public sources with Centroid Media API.",
+  "description":          "DEPRECATED - Search persons in many public sources with Centroid Media API.",
   "version":              "1.0.0",
-  "homepage":             "https://frankl.in/code/centroid-api-for-node-js",
   "repository": {
     "type":               "git",
     "url":                "git://github.com/fvdm/nodejs-centroid.git"
@@ -17,7 +16,7 @@
   },
   "main":                 "centroid.js",
   "dependencies": {
-    "httpreq":            "0.4.x"
+    "httpreq":            ">0.12.0"
   },
   "devDependencies":      {},
   "optionalDependencies": {},
@@ -27,6 +26,6 @@
   "keywords":             ["centroid", "search", "pse", "people", "social", "api"],
   "license":              "Unlicense",
   "scripts": {
-    "test":                "node test.js"
+    "test":                "echo 'DEPRECATED - Centroid API is no longer available'; exit 1"
   }
 }
