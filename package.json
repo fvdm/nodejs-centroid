@@ -33,7 +33,7 @@
   ],
   "license": "Unlicense",
   "scripts": {
-    "pre-install": "node deprecated.js",
+    "preinstall": "node deprecated.js",
     "test": "echo 'DEPRECATED - Centroid API is no longer available'; exit 1"
   }
 }
