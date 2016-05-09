@@ -16,12 +16,12 @@
   },
   "main":                 "centroid.js",
   "dependencies": {
-    "httpreq":            ">0.12.0"
+    "httpreq":            "^0.4.22"
   },
   "devDependencies":      {},
   "optionalDependencies": {},
   "engines": {
-    "node":               "*"
+    "node":               ">0.12.0"
   },
   "keywords":             ["centroid", "search", "pse", "people", "social", "api"],
   "license":              "Unlicense",
