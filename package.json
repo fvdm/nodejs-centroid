@@ -1,33 +1,39 @@
 {
   "author": {
-    "name":               "Franklin van de Meent",
-    "email":              "fr@nkl.in",
-    "url":                "https://frankl.in"
+    "name": "Franklin van de Meent",
+    "email": "fr@nkl.in",
+    "url": "https://frankl.in"
   },
-  "name":                 "centroid",
-  "description":          "DEPRECATED - Search persons in many public sources with Centroid Media API.",
-  "version":              "1.0.0",
+  "name": "centroid",
+  "description": "DEPRECATED - Search persons in many public sources with Centroid Media API.",
+  "version": "1.0.1",
   "repository": {
-    "type":               "git",
-    "url":                "git://github.com/fvdm/nodejs-centroid.git"
+    "type": "git",
+    "url": "git://github.com/fvdm/nodejs-centroid.git"
   },
   "bugs": {
-    "url":                "https://github.com/fvdm/nodejs-centroid/issues"
+    "url": "https://github.com/fvdm/nodejs-centroid/issues"
   },
-  "main":                 "centroid.js",
-  
+  "main": "centroid.js",
   "dependencies": {
-    "httpreq":            "^0.4.22"
+    "httpreq": "^0.4.22"
   },
-  "devDependencies":      {},
+  "devDependencies": {},
   "optionalDependencies": {},
   "engines": {
-    "node":               ">0.12.0"
+    "node": ">0.12.0"
   },
-  "keywords":             ["centroid", "search", "pse", "people", "social", "api"],
-  "license":              "Unlicense",
+  "keywords": [
+    "centroid",
+    "search",
+    "pse",
+    "people",
+    "social",
+    "api"
+  ],
+  "license": "Unlicense",
   "scripts": {
-    "pre-install":         "node deprecated.js",
-    "test":                "echo 'DEPRECATED - Centroid API is no longer available'; exit 1"
+    "pre-install": "node deprecated.js",
+    "test": "echo 'DEPRECATED - Centroid API is no longer available'; exit 1"
   }
 }
