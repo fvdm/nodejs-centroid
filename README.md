@@ -5,8 +5,14 @@ Unofficial node.js module for the Centroid Media API.
 
 [![Build Status](https://travis-ci.org/fvdm/nodejs-centroid.svg?branch=master)](https://travis-ci.org/fvdm/nodejs-centroid)
 
-* [Centroid Media](http://www.centroid.nl/)
-* [API documentation](http://api.centroidmedia.com/documentation.html)
+* ~~[Centroid Media](http://www.centroid.nl/)~~
+* ~~[API documentation](http://api.centroidmedia.com/documentation.html)~~
+
+
+DEPRECATED
+----------
+
+The `centroid` module is deprecated because the remote API is no longer available. All described methods will fail.
 
 
 Example
