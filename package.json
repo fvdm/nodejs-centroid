@@ -16,7 +16,7 @@
   },
   "main": "centroid.js",
   "dependencies": {
-    "httpreq": "^0.4.22"
+    "httpreq": "^0.4.24"
   },
   "devDependencies": {},
   "optionalDependencies": {},
